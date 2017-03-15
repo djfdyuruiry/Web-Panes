@@ -1,0 +1,4 @@
+﻿mainWebBrowserUrl: "https://id.atlassian.com/login"
+leftMinWebBrowserUrl: "https://github.com/login"
+rightMinWebBrowserUrl: "https://id.atlassian.com/login"
+enableAutoLogin: true

@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WebPanes.Views"
-             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
              xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              mc:Ignorable="d"
              Name="WebBrowserViewControl"
@@ -20,6 +18,7 @@
         <cef:ChromiumWebBrowser Grid.Column="0" 
                                 Grid.Row="0" 
                                 RenderOptions.BitmapScalingMode="HighQuality" 
+                                Address="{Binding Url}"
                                 WebBrowser="{Binding WebBrowser, Mode=OneWayToSource}"/>
     </Grid>
 </UserControl>

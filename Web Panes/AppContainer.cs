@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using SimpleInjector;
 using WebPanes.Interface;
+using WebPanes.Provider;
 using WebPanes.Util;
 
 namespace WebPanes
@@ -14,6 +15,9 @@ namespace WebPanes
 
             RegisterSingleton<IEventAggregator, EventAggregator>();
             RegisterSingleton<WebBrowserEventAggregator>();
+
+            RegisterSingleton<IWebPanesConfigurationProvider, YamlWebPanesConfigurationProvider>();
+            RegisterSingleton<UserCredentialsProvider>();
 
             Verify();
         }

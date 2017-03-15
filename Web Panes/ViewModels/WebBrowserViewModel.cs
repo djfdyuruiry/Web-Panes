@@ -1,24 +1,46 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using CefSharp;
 using WebPanes.Model;
 using WebPanes.Util;
+using WebPanes.Provider;
 
 namespace WebPanes.ViewModels
 {
     public class WebBrowserViewModel : Screen, IHandle<WebBrowserLoadedMessage>
     {
         private readonly WebBrowserEventAggregator _webBrowserEventAggreator;
+        private readonly UserCredentialsProvider _userCredentialsProvider;
         private readonly AutoLoginScriptLoader _autoLoginScriptLoader;
 
+        private string _url;
+
         public IWebBrowser WebBrowser { get; set; }
-        public string Url { get; set; }
+
+        public string Url
+        {
+            get
+            {
+                return _url;
+            }
+            set
+            {
+                _url = value;
+
+                WireUpAutoLoginIfEnabled();
+                NotifyOfPropertyChange(nameof(Url));
+            }
+        }
+
         public Guid BrowserGuid { get; }
-        
-        public WebBrowserViewModel(WebBrowserEventAggregator webBrowserEventAggreator, AutoLoginScriptLoader autoLoginScriptLoader,
-            IEventAggregator eventAggreator)
+
+        public WebBrowserViewModel(WebBrowserEventAggregator webBrowserEventAggreator, UserCredentialsProvider userCredentialsProvider, 
+            AutoLoginScriptLoader autoLoginScriptLoader, IEventAggregator eventAggreator)
         {
             _webBrowserEventAggreator = webBrowserEventAggreator;
+
+            _userCredentialsProvider = userCredentialsProvider;
             _autoLoginScriptLoader = autoLoginScriptLoader;
 
             BrowserGuid = Guid.NewGuid();
@@ -26,15 +48,12 @@ namespace WebPanes.ViewModels
             eventAggreator.Subscribe(this);
         }
 
-        protected override void OnViewLoaded(object view)
+        private void WireUpAutoLoginIfEnabled()
         {
-            if (!string.IsNullOrEmpty(Url))
+            if (_userCredentialsProvider.AutoLoginEnabled)
             {
                 _webBrowserEventAggreator.WireUpBrowserLoadedEvent(WebBrowser, BrowserGuid);
-                WebBrowser.Load(Url);
             }
-
-            base.OnViewLoaded(view);
         }
 
         public void Handle(WebBrowserLoadedMessage message)
@@ -45,7 +64,7 @@ namespace WebPanes.ViewModels
             }
 
             var browserFrame = WebBrowser.GetFocusedFrame();
-            var autoLoginScript = _autoLoginScriptLoader.LoadScript("", "");
+            var autoLoginScript = _autoLoginScriptLoader.LoadScript(_userCredentialsProvider.UserName, _userCredentialsProvider.Password);
 
             browserFrame.ExecuteJavaScriptAsync(autoLoginScript);        
         }

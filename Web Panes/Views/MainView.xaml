@@ -7,29 +7,43 @@
              xmlns:local="clr-namespace:WebPanes.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height=".05*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <local:WebBrowserView Grid.Column="0" Grid.Row="0" cal:View.Model="{Binding MainWebBrowserViewModel}"></local:WebBrowserView>
-        <GridSplitter Grid.Column="0" Grid.Row="1" ResizeDirection="Rows" VerticalAlignment="Stretch"></GridSplitter>
-        <Grid Grid.Column="0" Grid.Row="2">
+        <!-- auto login dialog -->
+        <local:AutoLoginDetailsView Grid.Column="0" 
+                                    Grid.Row="0" 
+                                    cal:View.Model="{Binding AutoLoginDetailsViewModel}"
+                                    x:Name="AutoLoginIsVisible"/>
+        <!-- web browsers -->
+        <Grid Grid.Column="0" Grid.Row="0" Name="AutoLoginIsNotVisible">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width=".02*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height=".03*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <local:WebBrowserView Grid.Column="0" Grid.Row="0" cal:View.Model="{Binding LeftMiniWebBrowserViewModel}"></local:WebBrowserView>
-            <GridSplitter Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></GridSplitter>
-            <local:WebBrowserView Grid.Column="2" Grid.Row="0" cal:View.Model="{Binding RightMiniWebBrowserViewModel}"></local:WebBrowserView>
+            <local:WebBrowserView Grid.Column="0" Grid.Row="0" cal:View.Model="{Binding MainWebBrowserViewModel}"/>
+            <GridSplitter Grid.Column="0" Grid.Row="1" ResizeDirection="Rows" HorizontalAlignment="Stretch"></GridSplitter>
+            <Grid Grid.Column="0" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width=".03*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <local:WebBrowserView Grid.Column="0" Grid.Row="0" cal:View.Model="{Binding LeftMiniWebBrowserViewModel}"/>
+                <GridSplitter Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch"></GridSplitter>
+                <local:WebBrowserView Grid.Column="2" Grid.Row="0" cal:View.Model="{Binding RightMiniWebBrowserViewModel}"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

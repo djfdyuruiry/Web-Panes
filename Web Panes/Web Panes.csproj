@@ -113,6 +113,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="YamlDotNet, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.4.1.1-pre325\lib\net35\YamlDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -125,8 +129,14 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="AppContainer.cs" />
+    <Compile Include="Interface\IWebPanesConfigurationProvider.cs" />
     <Compile Include="Interface\IShellViewModel.cs" />
+    <Compile Include="Model\AutoLoginDetailsFormDismissedMessage.cs" />
+    <Compile Include="Model\AutoLoginDetailsFormCompletedMessage.cs" />
+    <Compile Include="Model\WebPanesConfiguration.cs" />
     <Compile Include="Model\WebBrowserLoadedMessage.cs" />
+    <Compile Include="Provider\UserCredentialsProvider.cs" />
+    <Compile Include="Provider\YamlWebPanesConfigurationProvider.cs" />
     <Compile Include="ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -135,8 +145,13 @@
     <Compile Include="Util\Event\EventProxyAsync.cs" />
     <Compile Include="Util\Event\EventProxy.cs" />
     <Compile Include="Util\WebBrowserEventAggregator.cs" />
+    <Compile Include="ViewModels\AutoLoginDetailsViewModel.cs" />
+    <Compile Include="Model\WebBrowserUrlsSetMessage.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\WebBrowserViewModel.cs" />
+    <Compile Include="Views\AutoLoginDetailsView.xaml.cs">
+      <DependentUpon>AutoLoginDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -168,12 +183,19 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="WebPanesConfiguration.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AutoLoginDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\Exceptions\" />
-    <Folder Include="Provider\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AutoLoginScript.js" />
