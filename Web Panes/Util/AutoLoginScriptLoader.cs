@@ -8,7 +8,7 @@ namespace WebPanes.Util
         private const string UserNamePlaceholder = "{{username}}";
         private const string PasswordPlaceholder = "{{password}}";
 
-        private readonly static string ScriptResourceFileName = $"{nameof(WebPanes)}.Resources.AutoLoginScript.js";
+        private static readonly string ScriptResourceFileName = $"{nameof(WebPanes)}.Resources.AutoLoginScript.js";
 
         private string _script;
 

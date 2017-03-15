@@ -9,7 +9,6 @@ namespace WebPanes.ViewModels
     {
         private readonly UserCredentialsProvider _credentialsProvider;
         private readonly IWebPanesConfigurationProvider _webPanesConfigurationProvider;
-        private readonly IEventAggregator _eventAggregator;
 
         private bool _autoLoginIsVisible;
 
@@ -51,9 +50,8 @@ namespace WebPanes.ViewModels
 
             _credentialsProvider = credentialsProvider;
             _webPanesConfigurationProvider = webPanesConfigurationProvider;
-            _eventAggregator = eventAggregator;
 
-            _eventAggregator.Subscribe(this);
+            eventAggregator.Subscribe(this);
         }
 
         protected override void OnActivate()
