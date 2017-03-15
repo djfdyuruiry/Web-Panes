@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="WebPanes.Views.WebBrowserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WebPanes.Views"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+             mc:Ignorable="d"
+             Name="WebBrowserViewControl"
+             d:DesignHeight="320" 
+             d:DesignWidth="480">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <cef:ChromiumWebBrowser Grid.Column="0" 
+                                Grid.Row="0" 
+                                RenderOptions.BitmapScalingMode="HighQuality" 
+                                WebBrowser="{Binding WebBrowser, Mode=OneWayToSource}"/>
+    </Grid>
+</UserControl>
